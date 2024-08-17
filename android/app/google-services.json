@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788883148333",
+    "project_id": "todo-c11-maadi",
+    "storage_bucket": "todo-c11-maadi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788883148333:android:39b8bee08c76e47940b2a4",
+        "android_client_info": {
+          "package_name": "com.example.todo_c11_maadi"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB025r-ELJ04AR692CfHk8UKG2Um8KKJqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
