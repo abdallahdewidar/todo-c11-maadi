@@ -7,6 +7,7 @@ import 'package:todo_c11_maadi/firebase/task_collection.dart';
 import 'package:todo_c11_maadi/style/appstyle.dart';
 import 'package:todo_c11_maadi/style/dialog_utils.dart';
 import 'package:todo_c11_maadi/ui/AuthProvider.dart';
+import 'package:todo_c11_maadi/ui/home/widgets/edit%20task.dart';
 
 import '../../../firebase/model/Task.dart';
 
@@ -24,7 +25,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
     return Slidable(
       startActionPane: ActionPane(
           motion: BehindMotion(),
-          extentRatio: 0.4,
+          extentRatio: 0.5,
           children: [
             SlidableAction(
                 onPressed: (context){
@@ -41,6 +42,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
             ),
             SlidableAction(
               onPressed: (context){
+                Navigator.pushNamed(context, Edittask.routeName,arguments: widget.task);
                
               },
               icon: Icons.edit_note,
@@ -48,8 +50,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
               backgroundColor: Colors.blue,
               foregroundColor: Colors.white,
               borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomLeft: Radius.circular(20)
+
               ),
             )
           ]),

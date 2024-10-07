@@ -94,7 +94,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
     );
   }
 
-  addTask()async{
+addTask()async{
     DialogUtils.showLoadingDialog(context: context);
     AuthUserProvider authProvider = Provider.of<AuthUserProvider>(context,listen: false);
     await TaskCollection.createTask(authProvider.firebaseUser!.uid, Task(

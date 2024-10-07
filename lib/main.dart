@@ -5,6 +5,7 @@ import 'package:todo_c11_maadi/Todo%20provonidor.dart';
 import 'package:todo_c11_maadi/style/appstyle.dart';
 import 'package:todo_c11_maadi/ui/AuthProvider.dart';
 import 'package:todo_c11_maadi/ui/home/home_screen.dart';
+import 'package:todo_c11_maadi/ui/home/widgets/edit%20task.dart';
 import 'package:todo_c11_maadi/ui/login/login_screen.dart';
 import 'package:todo_c11_maadi/ui/register/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
         RegisterScreen.routeName:(_)=>RegisterScreen(),
         LoginScreen.routeName:(_)=>LoginScreen(),
         HomeScreen.routeName:(_)=>HomeScreen(),
-        SplashScreen.routeName:(_)=>SplashScreen()
+        SplashScreen.routeName:(_)=>SplashScreen(),
+        Edittask.routeName:(_)=>Edittask()
       },
       initialRoute: SplashScreen.routeName,
     );
