@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:todo_c11_maadi/firebase/user_collection.dart';
 
 import 'model/Task.dart';
@@ -37,4 +38,15 @@ class TaskCollection{
     var docRef = collectionRef.doc(taskId);
     await docRef.delete();
   }
+  static Future<void> upadatetaskformfirestore({required String userId,required Task task}){
+    return getTaskCollection(userId).doc(task.id).update(task.toFireStore()); }
+  static Stream<List<Task>>newGetTasks(String userId,DateTime date)async*{
+    var collectionRef = getTaskCollection(userId);
+    var snapshot = collectionRef.where("date",isGreaterThanOrEqualTo:  Timestamp.fromMillisecondsSinceEpoch(date.millisecondsSinceEpoch),
+    isLessThan:  Timestamp.fromMillisecondsSinceEpoch(date.add(Duration(days: 1)).millisecondsSinceEpoch)).snapshots();
+    var queryDocList=snapshot.map((snapshotOfTask)=>snapshotOfTask.docs);
+    var tasks=queryDocList.map((document)=>document.map((docs) => docs.data()).toList());
+    yield* tasks;
+  }
+
 }

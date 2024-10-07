@@ -1,5 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_c11_maadi/Todo%20provonidor.dart';
+import 'package:todo_c11_maadi/ui/AuthProvider.dart';
 import 'package:todo_c11_maadi/ui/home/tabs/settings_tab.dart';
 import 'package:todo_c11_maadi/ui/home/tabs/tasks_tab.dart';
 import 'package:todo_c11_maadi/ui/home/widgets/AddTaskSheet.dart';
@@ -17,10 +20,18 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [TasksTab(),SettingsTab()];
 
   int currentTabIndex = 0;
-
+@override
+  void initState() {
+    // TODO: implement initState
+   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+     Provider.of<TodoProvider>(context,listen: false).refreshtask(Provider.of<AuthUserProvider>(context,listen: false).firebaseUser!.uid);
+   } );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
+
       appBar: AppBar(
         title: Text("ToDo List"),
         actions: [

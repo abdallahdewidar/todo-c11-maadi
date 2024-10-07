@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todo_c11_maadi/Todo%20provonidor.dart';
 import 'package:todo_c11_maadi/style/appstyle.dart';
 import 'package:todo_c11_maadi/ui/AuthProvider.dart';
 import 'package:todo_c11_maadi/ui/home/home_screen.dart';
@@ -13,8 +15,14 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ChangeNotifierProvider(
-      create: (context) => AuthUserProvider(),
+  runApp(
+
+       MultiProvider(providers: [
+         ChangeNotifierProvider(create: (context)=> AuthUserProvider()
+         ),
+         ChangeNotifierProvider(create: (context)=> TodoProvider()
+         ),
+       ],
       child: const MyApp()));
 }
 

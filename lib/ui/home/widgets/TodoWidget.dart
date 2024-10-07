@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -23,7 +24,7 @@ class _ToDoWidgetState extends State<ToDoWidget> {
     return Slidable(
       startActionPane: ActionPane(
           motion: BehindMotion(),
-          extentRatio: 0.3,
+          extentRatio: 0.4,
           children: [
             SlidableAction(
                 onPressed: (context){
@@ -36,6 +37,19 @@ class _ToDoWidgetState extends State<ToDoWidget> {
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
                 bottomLeft: Radius.circular(20)
+              ),
+            ),
+            SlidableAction(
+              onPressed: (context){
+               
+              },
+              icon: Icons.edit_note,
+              label: "edit",
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20)
               ),
             )
           ]),
@@ -56,7 +70,8 @@ class _ToDoWidgetState extends State<ToDoWidget> {
                 width: 4,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Theme.of(context).colorScheme.primary
+
+                  color:widget.task.isDone==true?Colors.green: Theme.of(context).colorScheme.primary
                 ),
               ),
               SizedBox(width: 25,),
@@ -84,13 +99,18 @@ class _ToDoWidgetState extends State<ToDoWidget> {
                   ],
                 ),
               ),
-              ElevatedButton(onPressed: (){},
+              ElevatedButton(onPressed: (){
+                var provider = Provider.of<AuthUserProvider>(context,listen: false);
+               widget.task =Task(isDone:!(widget.task.isDone??false),id: widget.task.id,description:widget.task.description ,date:widget.task.date ,title: widget.task.title);
+TaskCollection.upadatetaskformfirestore(userId: provider.firebaseUser!.uid, task: widget.task);
+              },
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: widget.task.isDone==true?Colors.green:null,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)
                     )
                   ),
-                  child: Icon(Icons.check))
+                  child:widget.task.isDone==true?Text("Done"): Icon(Icons.check))
             ],
           ),
         ),
@@ -113,4 +133,5 @@ class _ToDoWidgetState extends State<ToDoWidget> {
         }
     );
   }
+
 }

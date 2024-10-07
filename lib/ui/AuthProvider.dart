@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:todo_c11_maadi/firebase/model/User.dart' as MyUser;
 import 'package:flutter/material.dart';
+import 'package:todo_c11_maadi/firebase/task_collection.dart';
 import 'package:todo_c11_maadi/firebase/user_collection.dart';
+
+import '../firebase/model/Task.dart';
 
 class AuthUserProvider extends ChangeNotifier{
   User? firebaseUser;
@@ -19,4 +22,5 @@ class AuthUserProvider extends ChangeNotifier{
     databaseUser = await UserCollection.getUser(firebaseUser?.uid??"");
     print(databaseUser?.email);
   }
+
 }
