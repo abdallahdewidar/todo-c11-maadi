@@ -31,7 +31,7 @@ late  DateTime? selectedDate;
     Task task =ModalRoute.of(context)!.settings.arguments as Task;
    if(title.text.isEmpty||description.text.isEmpty||selectedDate==null){ title.text=task.title??"";
     description.text=task.description??"";
-     selectedDate=DateTime(task.date!).millisecondsSinceEpoch ;}
+     selectedDate=DateTime.fromMillisecondsSinceEpoch(task.date!.millisecondsSinceEpoch);}
     return Scaffold(
       appBar: AppBar(),
       body: Container(
@@ -91,7 +91,7 @@ late  DateTime? selectedDate;
                  width: double.infinity,
                 child: ElevatedButton(onPressed: () {
                   var provider = Provider.of<AuthUserProvider>(context,listen: false);
-                  Task newtask=Task(title: title.text, description:description.text, date:selectedDate! ,id: task.id,isDone: task.isDone );
+                  Task newtask=Task(title: title.text, description:description.text, date:Timestamp.fromMillisecondsSinceEpoch(selectedDate!.millisecondsSinceEpoch) ,id: task.id,isDone: task.isDone );
 TaskCollection.upadatetaskformfirestore(userId: provider.firebaseUser!.uid, task: newtask);
                   Navigator.pop(context);
                 }, child: Text("Edit"),
