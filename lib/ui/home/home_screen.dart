@@ -10,45 +10,54 @@ import 'package:todo_c11_maadi/ui/login/login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "home";
-   HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> tabs = [TasksTab(),SettingsTab()];
+  List<Widget> tabs = [TasksTab(), SettingsTab()];
 
   int currentTabIndex = 0;
-@override
+
+  @override
   void initState() {
-    // TODO: implement initState
-   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-     Provider.of<TodoProvider>(context,listen: false).refreshtask(Provider.of<AuthUserProvider>(context,listen: false).firebaseUser!.uid);
-   } );
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Provider.of<TodoProvider>(context, listen: false).refreshtask(
+          Provider.of<AuthUserProvider>(context, listen: false)
+              .firebaseUser!
+              .uid);
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-
       appBar: AppBar(
         title: Text("ToDo List"),
         actions: [
           IconButton(
-              onPressed: (){
+              onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-              }, icon: Icon(Icons.logout))
+                Navigator.pushNamedAndRemoveUntil(
+                    context, LoginScreen.routeName, (route) => false);
+              },
+              icon: Icon(Icons.logout)),
         ],
       ),
-      floatingActionButtonLocation:FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-          onPressed: (){
-            showAddTaskBottomSheet();
-          },
+        onPressed: () {
+          showAddTaskBottomSheet();
+        },
         elevation: 0,
-        child: Icon(Icons.add,color: Colors.white,),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         notchMargin: 10,
@@ -56,38 +65,27 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: CircularNotchedRectangle(),
         elevation: 0,
         child: BottomNavigationBar(
-          currentIndex:currentTabIndex ,
-          onTap: (newIndex){
-            currentTabIndex = newIndex;
-            setState(() {
-
-            });
-          },
-          backgroundColor: Colors.transparent,
+            currentIndex: currentTabIndex,
+            onTap: (newIndex) {
+              currentTabIndex = newIndex;
+              setState(() {});
+            },
+            backgroundColor: Colors.transparent,
             elevation: 0,
             items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.menu_rounded
-                  ),
-                label: ""
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                    Icons.settings
-                ),
-                label: ""
-              )
-            ]
-        ),
+              BottomNavigationBarItem(icon: Icon(Icons.menu_rounded), label: ""),
+              BottomNavigationBarItem(icon: Icon(Icons.settings), label: "")
+            ]),
       ),
       body: tabs[currentTabIndex],
     );
   }
 
-  void showAddTaskBottomSheet(){
-    showModalBottomSheet(context: context,
+  void showAddTaskBottomSheet() {
+    showModalBottomSheet(
+      context: context,
       isScrollControlled: true,
-      builder: (context) => AddTaskSheet(),);
+      builder: (context) => AddTaskSheet(),
+    );
   }
 }
